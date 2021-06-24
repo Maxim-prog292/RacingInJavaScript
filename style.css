@@ -58,7 +58,7 @@ table {
     z-index: 1;
     border-radius: 20px;
     cursor: pointer;
-    background: url(/image/road.jpg);
+    background: url("/image/road.jpg");
     color: honeydew;
     font-size: 38px;
     font-weight: 600;
@@ -162,7 +162,7 @@ table {
 .enemy {
     width: 65px;
     height: 115px;
-    background:  transparent url(/image/enemy1.png) no-repeat;
+    background:  transparent url("/image/enemy1.png") no-repeat;
     background-size: contain;
     position: absolute;
     left: 137px;
@@ -187,13 +187,13 @@ table {
     left: 172px;
     z-index: 1;
 }
-.road {
+/* .road {
     position: absolute;
     width: 350px;
     height: 100px;
     background: url(./image/road.jpg);
     left: 0;
-}
+} */
 
 .visually-hidden {
     position: absolute !important;

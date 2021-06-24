@@ -7,6 +7,19 @@ const score = document.querySelector('.score'),
       gameName = document.querySelector('.gameName'),
       bestScore = document.querySelector('.bestScore');
 
+const forward = document.querySelector('.forward'),
+      back = document.querySelector('.back'),
+      left = document.querySelector('.left'),
+      right = document.querySelector('.right');
+
+forward.addEventListener('touchstart', forwardGo, false);
+
+function forwardGo() {
+    settings.y -= settings.speed;
+};
+
+
+
 const music = document.createElement('embed');
 
 music.src = 'audio.mp3';

@@ -7,19 +7,6 @@ const score = document.querySelector('.score'),
       gameName = document.querySelector('.gameName'),
       bestScore = document.querySelector('.bestScore');
 
-const forward = document.querySelector('.forward'),
-      back = document.querySelector('.back'),
-      left = document.querySelector('.left'),
-      right = document.querySelector('.right');
-
-forward.addEventListener('touchstart', forwardGo, false);
-
-function forwardGo() {
-    settings.y -= settings.speed;
-};
-
-
-
 const music = document.createElement('embed');
 
 music.src = 'audio.mp3';
@@ -78,6 +65,7 @@ console.log(getRandomEnemy(MAX_ENEMY));
 function startGame() {
     start.classList.add('hide');
     gameName.classList.add('hide');
+    bestScore.classList.add('hide');
     gameArea.innerHTML = '';
     document.body.append(music);
     
@@ -171,6 +159,7 @@ function moveEnemy() {
             settings.start = false;
             start.classList.remove('hide');
             gameName.classList.remove('hide');
+            bestScore.classList.remove('hide');
             music.remove();
 
             let scoreFinal = score.textContent;

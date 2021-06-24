@@ -58,7 +58,7 @@ table {
     z-index: 1;
     border-radius: 20px;
     cursor: pointer;
-    background: url("road.jpg");
+    background: url(./image/road.jpg);
     color: honeydew;
     font-size: 38px;
     font-weight: 600;
@@ -152,7 +152,7 @@ table {
 .car {
     width: 65px;
     height: 100px;
-    background:  url('player.png') center / contain no-repeat;
+    background:  url(./image/player.png) center / contain no-repeat;
     background-size: contain;
     position: absolute;
     left: 137px;
@@ -162,7 +162,7 @@ table {
 .enemy {
     width: 65px;
     height: 115px;
-    background:  transparent url("enemy1.png") no-repeat;
+    background:  transparent url(./image/enemy1.png) no-repeat;
     background-size: contain;
     position: absolute;
     left: 137px;

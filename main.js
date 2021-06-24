@@ -12,7 +12,7 @@ const music = document.createElement('embed');
 
 const audioBrake = document.createElement('embed');
 
-music.src = 'audio.mp3';
+music.src = './audio/audio.mp3';
 music.classList.add('visually-hidden');
 audioBrake.classList.add('visually-hidden');
 
@@ -120,7 +120,7 @@ function startGame() {
         enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';
         enemy.style.top = enemy.y + 'px';
         enemy.style.background = `
-            url(enemy${getRandomEnemy(MAX_ENEMY)}.png)
+            url(./image/enemy${getRandomEnemy(MAX_ENEMY)}.png)
             center / contain 
             no-repeat`;
         gameArea.appendChild(enemy);
@@ -147,14 +147,14 @@ function playGame() {
         if ( (keys.ArrowLeft || keys.a) && settings.x > 0) {
             settings.x -= settings.speed;
             car.style.transform = 'rotate(-5deg)';
-            audioBrake.src = 'audio-brake.mp3';
+            audioBrake.src = './audio/audio-brake.mp3';
             
         }
 
         if ( (keys.ArrowRight || keys.d) && settings.x < (gameArea.offsetWidth - car.offsetWidth)) {
             settings.x += settings.speed;
             car.style.transform = 'rotate(5deg)';
-            audioBrake.src = 'audio-brake.mp3';
+            audioBrake.src = './audio/audio-brake.mp3';
         }
 
         if ( (keys.ArrowUp || keys.w) && settings.y > 0) {

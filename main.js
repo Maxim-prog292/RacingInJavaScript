@@ -6,12 +6,39 @@ const score = document.querySelector('.score'),
       car = document.createElement('div'),
       gameName = document.querySelector('.gameName'),
       bestScore = document.querySelector('.bestScore');
+      
 
 const music = document.createElement('embed');
 
-music.src = 'audio.mp3';
+const audioBrake = document.createElement('embed');
 
+music.src = 'audio/audio.mp3';
 music.classList.add('visually-hidden');
+audioBrake.classList.add('visually-hidden');
+
+const hard = document.querySelector('.hard'),
+      middle = document.querySelector('.middle'),
+      easy = document.querySelector('.easy');
+
+hard.addEventListener('click', hardGame);
+middle.addEventListener('click', middleGame);
+easy.addEventListener('click', easyGame);
+
+function hardGame() {
+    settings.speed = 6;
+    settings.traffic = 2;
+    startGame();
+}
+function middleGame() {
+    settings.speed = 5;
+    settings.traffic = 3;
+    startGame();
+}
+function easyGame() {
+    settings.speed = 4;
+    settings.traffic = 4;
+    startGame();
+}
 
 
 
@@ -45,8 +72,8 @@ const keys = {
 const settings = {
     start: false,
     score: 0,
-    speed: 3,
-    traffic: 3
+    speed: 4,
+    traffic: 4
 };
 
 function getQuantityElements(heightElement) {
@@ -55,19 +82,21 @@ function getQuantityElements(heightElement) {
 
 
 const getRandomEnemy = (max) => Math.floor((Math.random() * max) + 1);
-console.log(getRandomEnemy(MAX_ENEMY));
-console.log(getRandomEnemy(MAX_ENEMY));
-console.log(getRandomEnemy(MAX_ENEMY));
-console.log(getRandomEnemy(MAX_ENEMY));
+
 
 
 
 function startGame() {
+    hard.classList.add('hide');
+    middle.classList.add('hide');
+    easy.classList.add('hide');
     start.classList.add('hide');
+
     gameName.classList.add('hide');
     bestScore.classList.add('hide');
     gameArea.innerHTML = '';
     document.body.append(music);
+    document.body.append(audioBrake);
     
     for (let i = 0; i < getQuantityElements(100); i++) {
         const line = document.createElement('div');
@@ -76,6 +105,13 @@ function startGame() {
         line.y = i * 100;
         gameArea.appendChild(line);
     }
+    // for (let i = 0; i < getQuantityElements(100); i++) {
+    //     const road = document.createElement('div');
+    //     road.classList.add('road');
+    //     road.style.top = (i * 50) + 'px';
+    //     road.y = i * 300;
+    //     gameArea.appendChild(road);
+    // }
 
     for (let i = 0; i < getQuantityElements(100 * settings.traffic); i++) {
         const enemy = document.createElement('div');
@@ -105,17 +141,20 @@ function playGame() {
     if (settings.start) {
         settings.score += settings.speed;
         score.textContent = `Счет: ${settings.score}`;
-        
-        moveRoad();
+        moveLine();
+        // moveRoad();
         moveEnemy();
         if ( (keys.ArrowLeft || keys.a) && settings.x > 0) {
             settings.x -= settings.speed;
             car.style.transform = 'rotate(-5deg)';
+            audioBrake.src = 'audio/audio-brake.mp3';
+            
         }
 
         if ( (keys.ArrowRight || keys.d) && settings.x < (gameArea.offsetWidth - car.offsetWidth)) {
             settings.x += settings.speed;
             car.style.transform = 'rotate(5deg)';
+            audioBrake.src = 'audio/audio-brake.mp3';
         }
 
         if ( (keys.ArrowUp || keys.w) && settings.y > 0) {
@@ -133,7 +172,7 @@ function playGame() {
     }
     
 };
-function moveRoad() {
+function moveLine() {
     let lines = document.querySelectorAll('.line');
     lines.forEach(function (line){
         line.y += settings.speed;
@@ -144,6 +183,17 @@ function moveRoad() {
         }
     })
 };
+// function moveRoad() {
+//     let roads = document.querySelectorAll('.road');
+//     roads.forEach(function (road){
+//         road.y += settings.speed;
+//         road.style.top = road.y + 'px';
+
+//         if ( road.y > document.documentElement.clientHeight) {
+//             road.y = -100;
+//         }
+//     })
+// };
 
 function moveEnemy() {
     let enemy = document.querySelectorAll('.enemy');
@@ -151,12 +201,15 @@ function moveEnemy() {
         let carRect = car.getBoundingClientRect();
         let enemyRect = item.getBoundingClientRect();
 
-        if (carRect.top <= enemyRect.bottom && 
-            carRect.right >= enemyRect.left && 
-            carRect.left <= enemyRect.right && 
-            carRect.bottom >= enemyRect.top) {
+        if ((carRect.top + 5) <= enemyRect.bottom && 
+            (carRect.right - 5) >= enemyRect.left && 
+            (carRect.left + 5) <= enemyRect.right && 
+            (carRect.bottom - 5) >= enemyRect.top) {
 
             settings.start = false;
+            hard.classList.remove('hide');
+            middle.classList.remove('hide');
+            easy.classList.remove('hide');
             start.classList.remove('hide');
             gameName.classList.remove('hide');
             bestScore.classList.remove('hide');
@@ -165,7 +218,8 @@ function moveEnemy() {
             let scoreFinal = score.textContent;
             bestScore.textContent = `Лучший ${scoreFinal}`;
             
-
+            localStorage.best = settings.score;
+            
             // fixedScore = settings.score;
             // console.log(fixedScore);
             
@@ -194,4 +248,3 @@ function stopRun(event){
         keys[event.key] = false;
     } 
 };
-

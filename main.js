@@ -25,19 +25,25 @@ middle.addEventListener('click', middleGame);
 easy.addEventListener('click', easyGame);
 
 function hardGame() {
+    win();
     settings.speed = 6;
     settings.traffic = 2;
     startGame();
+    
 }
 function middleGame() {
+    win();
     settings.speed = 5;
     settings.traffic = 3;
     startGame();
+    
 }
 function easyGame() {
+    win();
     settings.speed = 4;
     settings.traffic = 4;
     startGame();
+    
 }
 
 
@@ -144,6 +150,7 @@ function playGame() {
         moveLine();
         // moveRoad();
         moveEnemy();
+        win();
         if ( (keys.ArrowLeft || keys.a) && settings.x > 0) {
             settings.x -= settings.speed;
             car.style.transform = 'rotate(-5deg)';
@@ -234,6 +241,24 @@ function moveEnemy() {
         }
     });
 
+};
+
+function win() {
+    if ( settings.score == 10000 ) {
+            settings.start = false;
+            hard.classList.remove('hide');
+            middle.classList.remove('hide');
+            easy.classList.remove('hide');
+            start.classList.remove('hide');
+            gameName.classList.remove('hide');
+            bestScore.classList.remove('hide');
+            music.remove();
+
+            let scoreFinal = score.textContent;
+            bestScore.textContent = 'Вы победили!!!';
+            
+            localStorage.best = settings.score;
+    };
 };
 
 function startRun(event){

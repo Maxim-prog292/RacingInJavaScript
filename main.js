@@ -5,7 +5,8 @@ const score = document.querySelector('.score'),
       gameArea = document.querySelector('.gameArea'),
       car = document.createElement('div'),
       gameName = document.querySelector('.gameName'),
-      bestScore = document.querySelector('.bestScore');
+      bestScore = document.querySelector('.bestScore'),
+      houses = document.querySelector('.houses');
       
 
 const music = document.createElement('embed');
@@ -23,6 +24,9 @@ const hard = document.querySelector('.hard'),
 hard.addEventListener('click', hardGame);
 middle.addEventListener('click', middleGame);
 easy.addEventListener('click', easyGame);
+hard.addEventListener('click', win);
+middle.addEventListener('click', win);
+easy.addEventListener('click', win);
 
 function hardGame() {
     win();
@@ -131,6 +135,18 @@ function startGame() {
             no-repeat`;
         gameArea.appendChild(enemy);
     }
+    // for (let i = 0; i < getQuantityElements(100 * settings.traffic); i++) {
+    //     const house = document.createElement('div');
+    //     house.classList.add('house');
+    //     house.y = -100 * settings.traffic * (i + 1);
+    //     house.style.left = Math.floor(Math.random() * (houses.offsetWidth - 50)) + 'px';
+    //     house.style.top = house.y + 'px';
+    //     house.style.background = `
+    //         url(./image/house1.png)
+    //         center / contain 
+    //         no-repeat`;
+    //     houses.appendChild(house);
+    // }
 
     settings.score = 0;
     settings.start = true;
@@ -150,6 +166,7 @@ function playGame() {
         moveLine();
         // moveRoad();
         moveEnemy();
+        // moveHouse()
         win();
         if ( (keys.ArrowLeft || keys.a) && settings.x > 0) {
             settings.x -= settings.speed;
@@ -242,9 +259,23 @@ function moveEnemy() {
     });
 
 };
+// function moveHouse() {
+//     let house = document.querySelectorAll('.house');
+//     house.forEach(function(item){
+
+//         item.y += settings.speed / 2;
+//         item.style.top = item.y + 'px';
+
+//         if ( item.y > document.documentElement.clientHeight) {
+//             item.y = -10 * settings.traffic;
+//             item.style.left = Math.floor(Math.random() * (houses.offsetWidth - 1)) + 'px';
+//         }
+//     });
+
+// };
 
 function win() {
-    if ( settings.score == 10000 ) {
+    if ( settings.score == 100000 ) {
             settings.start = false;
             hard.classList.remove('hide');
             middle.classList.remove('hide');
